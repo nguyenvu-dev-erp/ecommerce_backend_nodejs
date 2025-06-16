@@ -13,6 +13,63 @@ class ProductController {
             }),
         }).send(res)
     }
+
+    static async publishProductByShop(req, res, next) {
+        new SuccessResponse({
+            message: 'Publish product by shop success!',
+            metadata: await ProductService.publishProductByShop({
+                product_id: req.params.id,
+                product_shop: req.user.userId,
+            }),
+        }).send(res)
+    }
+
+    static async unPublishProductByShop(req, res, next) {
+        new SuccessResponse({
+            message: 'UnPublish product by shop success!',
+            metadata: await ProductService.unPublishProductByShop({
+                product_id: req.params.id,
+                product_shop: req.user.userId,
+            }),
+        }).send(res)
+    }
+
+    /**
+     * @desc Get all Drafts for shop
+     * @param {Number} limit
+     * @param {Number} skip
+     * @return {JSON}
+     **/
+    static async getAllDraftsForShop (req, res, next) {
+        new SuccessResponse({
+            message: 'Get list Drafts success',
+            metadata: await ProductService.findAllDraftsForShop({
+                product_shop: req.user.userId
+            })
+        }).send(res)
+    }
+
+    /**
+     * @desc Get all Drafts for shop
+     * @param {Number} limit
+     * @param {Number} skip
+     * @return {JSON}
+     **/
+    static async getPublishForShop (req, res, next) {
+        new SuccessResponse({
+            message: 'Get list Drafts success',
+            metadata: await ProductService.findAllPublishForShop({
+                product_shop: req.user.userId
+            })
+        }).send(res)
+    }
+
+    static async getListSearchProduct (req, res, next) {
+        new SuccessResponse({
+            message: 'Get list Products success',
+            metadata: await ProductService.searchProducts(req.params.keySearch)
+        }).send(res)
+    }
 }
 
 module.exports = ProductController;
